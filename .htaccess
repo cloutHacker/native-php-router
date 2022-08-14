@@ -1,0 +1,21 @@
+DirectoryIndex index.php
+
+#enabling apache rewrite engine
+RewriteEngine On
+
+
+#setting the rewrite base
+#editing to the base dir 
+RewriteBase /
+
+#Deliver the folder or the file exists in on the server
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+#push every request to index.php
+RewriteRule ^(.*)$ index.php [QSLA]
+
+#give acces to some files
+RewriteCond %{REQUEST_FILENAME} -d
+
+RewriteRule ^(.*)$ index.php [QSLA]

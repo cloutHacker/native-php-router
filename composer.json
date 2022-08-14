@@ -1,0 +1,17 @@
+{
+    "name": "vendor/router",
+    "description": "custom php router",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kibiwottderick",
+            "email": "kibiwottderick@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
