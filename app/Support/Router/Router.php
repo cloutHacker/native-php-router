@@ -61,7 +61,7 @@ class Router extends RouterHelper implements RouterInterface
             return $this->renderView($handler);
         }
         //checking if the method is view
-        elseif ($method == 'GET' && $handler = $this->handlers['POST'.$requestPath]){
+        elseif ($method == 'GET' && @$handler = $this->handlers['POST'.$requestPath]){
            $this->throwError('','Error method not allowed');
         } 
         else {
