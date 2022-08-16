@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
-class UserController {
-    public function index() {
-        echo "Kemboi's page";
-    }
-    public function derick() {
-        echo "index page for derick";
-    }
+        
+ use App\Http\Controllers\Controller;
+        
+ class UserController extends Controller{
+        //
+        public function index($title, $name) {
+            return $this->view('home', ['title' => $title, 'name' => $name]);
+        }
 }

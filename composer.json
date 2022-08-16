@@ -3,7 +3,8 @@
     "description": "custom php router",
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Illuminate\\": "vendor/"
         }
     },
     "authors": [

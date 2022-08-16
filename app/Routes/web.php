@@ -1,13 +1,16 @@
 <?php
-
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
-use App\Support\Router\Router;
+use Illuminate\Support\Router\Router;
 
-$router  = new Router();
-$router->get('/kemboi/home', [UserController::class, 'index']);
-$router->view('home', 'home');
-$router->post('/derick', [UserController::class, 'derick']);
-$router->run();
+Router::get('/home/{name}/title/{title}', [UserController::class, 'index']);
+Router::get('/noe', function () {
+    echo "name derick kibiwot";
+});
+Router::view('/', function () {
+    return 't';
+});
+Router::view('/rutto', function () {
+    return 'rutto';
+});
 
 

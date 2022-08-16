@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Support\Error\ErrorHandler;
-use App\Support\Router\RouterHelper;
+use Illuminate\Support\Error\ErrorHandler;
+use Illuminate\Support\Router\RouterHelper;
 
-class Controller extends RouterHelper{
+class Controller
+{
+    use RouterHelper;
     /**
      * @var string
      * @return void
      * 
      */
     use ErrorHandler;
-    public function view(string $file):void {
-        $filtered_path = $this->cleanViewPath($file);
-        $dir = __DIR__.'./../../Views/'.$filtered_path;
-        if (file_exists($dir)) {
-            require_once $dir;
-        }else {
-            $this->throwError('','Error view not found');
+    public function view(string $view, $props = [])
+    {   
+        foreach ($props as $key => $value) {
+            $$key = $value;
         }
+        //still open for modification
+        $view = self::cleanViewPath($view);
+        return self::getView($view) ? require self::$viewPath . $view :
+            self::throwError('', 'Error View not found');
     }
 }

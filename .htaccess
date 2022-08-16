@@ -1,21 +1,22 @@
 DirectoryIndex index.php
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
 
+# Handle Authorization Header
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+# Redirect Trailing Slashes If Not A Folder...
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [L,R=301]
 #enabling apache rewrite engine
 RewriteEngine On
-
-
-#setting the rewrite base
-#editing to the base dir 
-RewriteBase /
 
 #Deliver the folder or the file exists in on the server
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 #push every request to index.php
-RewriteRule ^(.*)$ index.php [QSLA]
-
-#give acces to some files
-RewriteCond %{REQUEST_FILENAME} -d
-
-RewriteRule ^(.*)$ index.php [QSLA]
+RewriteRule ^(.*)$ index.php [QSA]
