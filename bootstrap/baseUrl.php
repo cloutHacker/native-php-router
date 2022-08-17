@@ -24,7 +24,7 @@
     }
 define('BASE_URL_',base_url());
 
-function url(){
+function appUrl(){
     return sprintf(
       "%s://%s%s",
       isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
@@ -32,4 +32,4 @@ function url(){
       $_SERVER['REQUEST_URI']
     );
   }
-  define('BASE_URL', str_replace(BASE_URL_, '', url()));
+  define('BASE_URL', str_replace(BASE_URL_, '', appUrl()));

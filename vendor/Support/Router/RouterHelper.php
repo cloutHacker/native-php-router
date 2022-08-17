@@ -8,7 +8,7 @@ trait RouterHelper
 {
     use ErrorHandler;
     private static $viewPath = __DIR__ . './../../../app/Views/';
-    private static $allowedSlugs = '-_';
+    private static $allowedSlugs = '-_/?';
     /*
     |cleans path removing dots and returning correct path
     |eg templates.nav to templates/nav.php
@@ -114,20 +114,20 @@ trait RouterHelper
      * @param object $callback
      * @param array $args
      */
-    public static function runClass($callback, $args = '')
+    public static function runClass($callback, $args = [])
     {
         $class = @new $callback[0]();
         $func = @$callback[1];
-        return method_exists($class, $func) ? $class->$func('df', 'f') : self::throwError('', 'Undefined Class or method');
+        return method_exists($class, $func) ? call_user_func_array([$class, $func],$args) : self::throwError('', 'Undefined Class or method');
     }
     /*
     |calls the route even thought it is a array
     |
     */
 
-    public static function runRoute($callback, $slugValues = '')
+    public static function runRoute($callback, $slugValues = [])
         {
-        is_object($callback) ? call_user_func($callback, $slugValues) : self::runClass($callback, $slugValues);
+        is_object($callback) ? call_user_func_array($callback, $slugValues) : self::runClass($callback, $slugValues);
         return true;
     }
     /*
@@ -154,7 +154,6 @@ trait RouterHelper
      */
     public static function findSlugUrl($source, $requestPath)
     {
-        $common = 0;
         foreach ($source as $item) {
             $path = $item['path'];
             $newPath = preg_replace("#{.*?}#", "\w+[".self::$allowedSlugs."]?\w+", $path);

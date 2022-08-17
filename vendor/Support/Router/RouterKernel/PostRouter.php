@@ -2,6 +2,7 @@
 
 namespace Illuminate\Support\Router\RouterKernel;
 
+use Illuminate\Support\Helpers\Request\RequestHandler;
 use Illuminate\Support\Router\RouterHelper;
 
 trait PostRouter
@@ -22,7 +23,7 @@ trait PostRouter
     {
        $valid = self::validateRoute(self::$postHandler,self::$METHOD_POST,$requestUri, $requestPath);
        $callback = @self::$postHandler[self::$METHOD_POST.$requestPath]['handler'];
-        return $valid ? self::runRoute($callback) : false;
+        return $valid ? self::runRoute($callback, [new RequestHandler()]) : false;
     }
 
 }

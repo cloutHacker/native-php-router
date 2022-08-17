@@ -13,4 +13,7 @@ class ConsoleKernel implements KernelInterface {
     {
         $dir = $_ENV['VIEW_PATH'] ?? __DIR__.'./../../../app/Views/';
     }
+    public static function run() {
+        require __DIR__.'./StorageKernel.php';
+    }
 }
