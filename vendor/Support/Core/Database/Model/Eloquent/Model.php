@@ -1,9 +1,8 @@
 <?php
 
-namespace Illuminate\Core\Database\Model;
+namespace Illuminate\Support\Core\Database\Model\Eloquent;
 
-use Illuminate\Core\Database\Eloquent\ModelHandler;
-use Illuminate\Core\Database\ModelHandler\Eloquent;
+use Illuminate\Support\Core\Database\Model\Eloquent\ModelHandler;
 
 class Model extends ModelHandler
 {

@@ -19,12 +19,15 @@ class RequestHandler extends SplashObject implements Request
     {
         return $this->all()->$name ?? $this->throwError('', 'Call to undefined property');
     }
+   
     /**
      * @param null
      * Takes no parameter and returns all the values of the post request as an object
      */
     public function all()
     {
+    
         return static::arrToObj($_POST);
     }
+
 }

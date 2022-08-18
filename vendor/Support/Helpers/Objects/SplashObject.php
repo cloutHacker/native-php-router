@@ -17,4 +17,15 @@ class SplashObject {
         }
         return $object;
     }
+    /**
+     * @param object $object
+     * The function takes in an object and returns an associative array
+     */
+    public function objToArr(object $object) {
+        $arr = [];
+          foreach($object as $key => $value) {
+            $arr[$key]= $value;
+          }
+          return $arr;
+    }
 }

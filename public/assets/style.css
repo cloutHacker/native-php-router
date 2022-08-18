@@ -26,3 +26,11 @@ button.signup::before {
 button.signup:hover::before {
     width: 100%;
 }
+.splash-title {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+}
+.container.splash-container {
+    box-shadow: 0 0 20px rgba(113, 103, 103, 0.3);
+}

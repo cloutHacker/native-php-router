@@ -8,8 +8,6 @@ use Exception;
 trait ErrorHandler
 {
     protected static function throwError($code = '', $error) {
-        $place = getenv('');
-        var_dump($place);
         $title = $code.' '.$error;
         $file = __DIR__.'./errorView/Notfound.php';
         require_once $file;

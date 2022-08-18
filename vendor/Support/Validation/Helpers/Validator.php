@@ -11,9 +11,11 @@ trait Validator
      */
     private $errors = [];
     /**
+     * @param array $requests
+     * @param object $source
      * validates post fields
      */
-    public function validate($source = '', $requests)
+    public function validate($source = '', array $requests)
     {
         foreach ($requests as $name => $validationRule) {
             $this->assignMethod($name, $validationRule);
@@ -21,7 +23,6 @@ trait Validator
     }
     public function assignMethod($name, $request)
     {
-        // var_dump($request);
         $request = explode('|', $request);
         foreach ($request as $requirement) {
             $this->assignFunc($requirement, $name);
@@ -44,7 +45,7 @@ trait Validator
         return $item == '' && !$this->validationExists($name)
             ? $this->returnValidationError("$name field is required", $name) : '';
     }
-    public function unique($name,$table)
+    public function unique($name, $table)
     {
     }
     /**
@@ -82,11 +83,23 @@ trait Validator
      * @param string
      * returns an error if the field is not confirmed
      */
-    public function confirmed(string $value, string $field) {
-        $relativeField = $field.'_confirmation';
+    public function confirmed(string $value, string $field)
+    {
+
+        $relativeField = $field . '_confirmation';
         $relValue = $this->getProperty($relativeField);
         return $relValue !== $value && !$this->validationExists($field) ?
-        $this->returnValidationError("$field confirmation should match with the $field", $field) : ''; 
+            $this->returnValidationError("$field confirmation should match with the $field", $field) : '';
+    }
+    /**
+     * @param string $value
+     * @param string $field
+     * takes in a field value and a field and returns validation errors
+     */
+    public function strong(string $value, string $field)
+    {
+        return !preg_match('#.*[A-Z][0-9].*#', $value) && !$this->validationExists($field) ?
+            $this->returnValidationError("$field field should have at least one number or a letter", $field) : '';
     }
     /**
      * @param string $request
@@ -95,7 +108,7 @@ trait Validator
     public function assignFunc(string $request, string $name)
     {
         $all = $this->all();
-        if (preg_match('#\w+:\d#', $request)) {
+        if (preg_match('#\w+:\w+#', $request)) {
             $req = explode(':', $request);
             $method = $req[0];
             return method_exists($this, $method) ? $this->$method($req[1], $name) : static::throwError('Undefined validation rule');
@@ -131,10 +144,25 @@ trait Validator
      * @return array
      * returns all the errors of the request
      */
-    public function errors()
+    public function errors($type = 'array')
     {
-        return array_filter($this->errors, function ($error) {
+        return $this->conErrors($type);
+    }
+    /**
+     * @return array
+     * takes no input and returns an array
+     */
+    private function renderErrors(): array
+    {
+        return  array_filter($this->errors, function ($error) {
             return $error !== '' ? $error : '';
         });
+    }
+    /**
+     * @param string $type
+     */
+    private function conErrors(string $type)
+    {
+        return $type == 'array' ? $this->renderErrors() : $this->arrToObj($this->renderErrors());
     }
 }

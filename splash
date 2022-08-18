@@ -1,35 +1,7 @@
 <?php
 // include __DIR__.'/bootstrap/app.php';
 require __DIR__.'/vendor/autoload.php';
-use Illuminate\Support\Command\SplashCode;
-$dir = 'app/Http/Controllers/';
+use App\Console\Kernel;
 
-function getControllerContent($controller)  {
-    $content = '<?php
-namespace App\Http\Controllers;
-        
- use App\Http\Controllers\Controller;
-        
- class ' . $controller . ' extends Controller{
-            //
-}';
-return $content;
-}
-function fileValidate($dir, $file) {
-    if (file_exists($dir.$file)) {
-        echo 'Controller already exists';
-        return false;
-    }
-    return true;
-}
-if (isset($argv)) {
-    $controller = $argv[2];
-    $command = $argv[1];
-    $command = explode(':', $command)[1];
-    if ($command == 'controller' && fileValidate($dir, $controller.'.php')) {
-        $content = getControllerContent($controller);
-        $file = $dir.$controller.'.php';
-        file_put_contents($file, $content);
-        echo "Controller generated successfully";
-    }
-}
+return (new Kernel())->validateCommand($argv)->assignCommand();    
+

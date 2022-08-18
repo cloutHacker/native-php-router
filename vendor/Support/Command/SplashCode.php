@@ -2,38 +2,111 @@
 
 namespace Illuminate\Support\Command;
 
-
 trait SplashCode
 {
-    public $controllerPath = __DIR__ .'./../app/Http/Controllers';
-    public array $command = [];
-    public function controllerContent($controller)
+    protected static $command = '';
+    protected static $value = '';
+    protected static $isValid = false;
+    use Text;
+    protected $logo = '
+    _______     _____   __                   _______   _     _
+   / _______|  |  __ \  | |          /\     / ______| | |   | |
+  | |_____     | /  \ | | |         /  \   | |______  | |___| |
+   \_______ \  | \_ / | | |        / __ \   \ _____  \|  ___  |
+    ______ | | |  ___/  | |____   / /  \ \   ______| || |   | |
+    |_______/  |_|      |______| /_/    \_\  |______/ |_|   |_|
+    ';
+
+    protected $controllerDir = __DIR__ . './../../../app/Http/Controllers/';
+    protected $modelDir = __DIR__ . './../../../app/Models/';
+    protected $migration;
+    /**
+     * @param int $code
+     * @return consoleString 
+     */
+    public function colorize(int $code, $text): string
     {
-        $content = '<?php
-namespace App\Http\Controllers;
-        
- use App\Http\Controllers\Controller;
-        
- class ' . $controller . ' extends Controller{
-            //
-}';
-        return $content;
+        echo $this->logo;
+        return $this->returnConsole($code, $text);
     }
-    public function genController($dir, $controller)
+
+    /**
+     * @param string $code 
+     * return console text with a color
+     */
+    public function returnConsole(int $code, $text): string
     {
-        if ($this->validateController($dir, $controller)) {
-        $contents = $this->controllerContent($controller);
-        file_put_contents($dir.$controller.'.php', $contents);
+        return "\033[" . $code . "m" . "$text" . "\e[0m";
+    }
+
+    /**
+     * @param string $command 
+     * @param string $value
+     * @return null
+     * assign commands their functions
+     */
+    public function assignCommand()
+    {
+        return self::$isValid ? $this->assignFunc(self::$command, self::$value) : 
+        $this->colorize($this->code['red'], 'Invalid command Entered');
+    }
+
+    /**
+     * @param string $command 
+     * @param string $value
+     * assign every function according to the command given
+     */
+    public function assignFunc($command, $value)
+    {
+        if (preg_match('#\w+:\w+#', $command)) {
+            $parts = explode(":", $command);
+            $func = $parts[0];
+            $commandval = $parts[1];
+            return $this->$func($commandval, $value);
+        } elseif (preg_match('#\w+#', $command)) {
+            return $this->$command();
         }
+        return $this->colorize($this->code['red'], 'Unknown command');
     }
-    
-    public function validateController($dir,$controller)
+
+    /**
+     * @param string $command
+     * @param string $value
+     */
+    public function make($command, $value)
     {
-        if (file_exists($dir.$controller . '.php')) {
-            echo "controller already exists";
-            return false;
-        }
-        return true;
+        return $this->$command($value);
     }
-    
+
+    /**
+     * @param string $value
+     * generates the controller with its contents
+     */
+    public function controller($value)
+    {
+        return $this->genController($value, $this->controllerDir);
+    }
+
+    /**
+     * @param string $value
+     * generates model with model contents in it
+     */
+    public function model($value)
+    {
+        return $this->genModel($value, $this->modelDir);
+    }
+    /**
+     * @param null
+     * validates if the command is found
+     */
+    public function validateCommand($argv) {
+        if (isset($argv)) {
+            $command = @$argv[1];
+            $value = @$argv[2];
+            self::$isValid = $command !== '' && $value !== '' ? true : false; 
+            self::$command = self::$isValid ? $command : '';
+            self::$value = self::$isValid ? $value : '';
+        }
+        return $this;
+    }
 }
