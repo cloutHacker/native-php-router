@@ -3,6 +3,7 @@
 namespace Illuminate\Support\Router;
 use Illuminate\Support\Router\RouterKernel\GetRouter;
 use Illuminate\Support\Router\RouterKernel\PostRouter;
+use Illuminate\Support\Router\RouterKernel\PutRouter;
 use Illuminate\Support\Router\RouterKernel\ViewRouter;
 
 class Router
@@ -11,7 +12,7 @@ class Router
     use GetRouter;
     use PostRouter;
     use ViewRouter;
-    
+    use PutRouter;
     public static function run()
     {
         $requestUri = parse_url($_SERVER['REQUEST_URI']);
@@ -21,6 +22,7 @@ class Router
         $post = self::postExec($requestMethod, $requestPath);
         $get = self::getexec($requestMethod, $requestPath);
         $view  = self::viewExec($requestMethod, $requestPath);
-       return  self::validateErrors($get, $post, $view);
+        $put = self::putExec($requestMethod, $requestPath);
+       return  self::validateErrors([$get,$post,$view,$put]);
     }
 }

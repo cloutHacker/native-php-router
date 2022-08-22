@@ -108,7 +108,7 @@ trait RouterHelper
     /*
      |runs the function where the class and its object are provided in an array
      | 
-     */ 
+     */
     /**
      * @return object
      * @param object $callback
@@ -118,7 +118,7 @@ trait RouterHelper
     {
         $class = @new $callback[0]();
         $func = @$callback[1];
-        return method_exists($class, $func) ? call_user_func_array([$class, $func],$args) : self::throwError('', 'Undefined Class or method');
+        return method_exists($class, $func) ? call_user_func_array([$class, $func], $args) : self::throwError('', 'Undefined Class or method');
     }
     /*
     |calls the route even thought it is a array
@@ -126,7 +126,7 @@ trait RouterHelper
     */
 
     public static function runRoute($callback, $slugValues = [])
-        {
+    {
         is_object($callback) ? call_user_func_array($callback, $slugValues) : self::runClass($callback, $slugValues);
         return true;
     }
@@ -134,10 +134,23 @@ trait RouterHelper
      |throws errors incase all the routes were not found
      | 
      */
-    public static function validateErrors($post, $get, $view)
+    public static function validateErrors(array $routes)
     {
-        return $get == false && $post == false && $view == false ?
+        return self::allFalse($routes) ?
             self::throwError('', 'Error page not found') : '';
+    }
+    /**
+     * @param array $array
+     * returns true if all values of an array are false
+     */
+    public static function allFalse(array $array)
+    {
+        $arrayCount = count($array);
+        $counter = 0;
+        foreach ($array as $item) {
+            $counter = !$item ? $counter + 1 : $counter;
+        }
+        return $counter == $arrayCount ? true : false;
     }
     /**
      * @return bool
@@ -156,7 +169,7 @@ trait RouterHelper
     {
         foreach ($source as $item) {
             $path = $item['path'];
-            $newPath = preg_replace("#{.*?}#", "\w+[".self::$allowedSlugs."]?\w+", $path);
+            $newPath = preg_replace("#{.*?}#", "\w+[" . self::$allowedSlugs . "]?\w+", $path);
             preg_match("#$newPath#", $requestPath, $match);
             if (@$match[0] === $requestPath) {
                 return $path;
