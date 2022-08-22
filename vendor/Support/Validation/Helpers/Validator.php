@@ -29,7 +29,7 @@ trait Validator
         }
     }
     /**
-     * @return object
+     * @param string $name
      * takes in the name of the object and returns the value of the method or the property
      */
     public function getProperty($name)
