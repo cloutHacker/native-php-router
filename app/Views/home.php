@@ -14,8 +14,8 @@
         <div class="text-success splash-title">Welcome to codeSplash</div>
         <p class="fs-3">
             CodeSplash is an awesome framework boosting and saving time for developing code from scratch.
-            It is used to build robust and elegant web apps.damu nyeusi
-        </p>
+            It is used to build robust and elegant web apps.
+            This is a copyright  software made by Derick kibiwott currently studying at Alliance High School.
         </div>
     </div>
 </body>

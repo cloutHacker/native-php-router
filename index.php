@@ -4,9 +4,11 @@
  |This is a copyright© software owned by codeSplash 
  | Thanks to developer Kibiwott currently studying at Alliance High School
  */
-use Illuminate\Support\Router\Router;
+ include __DIR__.'/vendor/autoload.php';
+
+ use Illuminate\Support\Router\Router;
 include './bootstrap/app.php';
-include __DIR__.'/vendor/autoload.php';
+
 include __DIR__.'/app/Routes/web.php';
 
 /*

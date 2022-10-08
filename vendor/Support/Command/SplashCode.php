@@ -34,9 +34,10 @@ trait SplashCode
      * @param string $code 
      * return console text with a color
      */
-    public function returnConsole(int $code, $text): string
+    public function returnConsole(int $code, $text)
     {
-        return "\033[" . $code . "m" . "$text" . "\e[0m";
+        echo "\033[" . $code . "m" . "$text" . "\e[0m";
+        return "";
     }
 
     /**
@@ -58,13 +59,18 @@ trait SplashCode
      */
     public function assignFunc($command, $value)
     {
+     var_dump("reached here");
         if (preg_match('#\w+:\w+#', $command)) {
             $parts = explode(":", $command);
             $func = $parts[0];
             $commandval = $parts[1];
             return $this->$func($commandval, $value);
         } elseif (preg_match('#\w+#', $command)) {
+       
             return $this->$command();
+        }
+        else {
+            return $this->$command;
         }
         return $this->colorize($this->code['red'], 'Unknown command');
     }
@@ -100,13 +106,19 @@ trait SplashCode
      * validates if the command is found
      */
     public function validateCommand($argv) {
-        if (isset($argv)) {
-            $command = @$argv[1];
-            $value = @$argv[2];
-            self::$isValid = $command !== '' && $value !== '' ? true : false; 
-            self::$command = self::$isValid ? $command : '';
-            self::$value = self::$isValid ? $value : '';
+        $count = count($argv);
+        if ($count == 3) {
+            self::$command = $argv[1];
+            self::$value = $argv[2];
+            self::$isValid = true;
         }
-        return $this;
+        elseif($count == 2) {
+            self::$command = $argv[1];
+            self::$isValid = true;
+        }
+	return $this;
+    }
+    public function serve() {
+        exec("php -S localhost:200");
     }
 }

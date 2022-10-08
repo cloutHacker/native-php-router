@@ -12,6 +12,7 @@ trait ViewRouter
     public static function view(string $path, $handler): void
     {
         $path = self::cleanRequestPath($path);
+        //Entering all the get requests
         self::$viewHandler = array_merge(
             self::addHandler(self::$viewHandler, self::$METHOD_VIEW, $path, $handler),
             self::$viewHandler

@@ -10,6 +10,7 @@ trait Validator
      * 
      */
     private $errors = [];
+    
     /**
      * @param array $requests
      * @param object $source
@@ -21,6 +22,7 @@ trait Validator
             $this->assignMethod($name, $validationRule);
         }
     }
+    
     public function assignMethod($name, $request)
     {
         $request = explode('|', $request);
@@ -28,13 +30,15 @@ trait Validator
             $this->assignFunc($requirement, $name);
         }
     }
+    
     /**
      * @param string $name
      * takes in the name of the object and returns the value of the method or the property
      */
     public function getProperty($name)
     {
-        $all = @$this->all();
+        $all 
+        = @$this->all();
         return property_exists($all, $name) ? $all->$name : die($this->throwError('', "Undefined Property $name"));
     }
     /**
@@ -68,7 +72,7 @@ trait Validator
     {
         $fieldVal = @count(str_split(($this->getProperty($name))));
         return $fieldVal < $val && !$this->validationExists($name)
-            ? $this->returnValidationError("$name should not be less than $val", $name) : '';
+            ? $this->returnValidationError("$name should not be less than $val characters", $name) : '';
     }
     /**
      * returns an error if the max value is surpassed
@@ -77,7 +81,7 @@ trait Validator
     {
         $fieldVal = @count(str_split(($this->getProperty($name))));
         return $fieldVal > $val && !$this->validationExists($name)
-            ? $this->returnValidationError("$name should not be greater than $val", $name) : '';
+            ? $this->returnValidationError("$name should not be greater than $val characters", $name) : '';
     }
     /**
      * @param string
@@ -101,6 +105,7 @@ trait Validator
         return !preg_match('#.*[A-Z][0-9].*#', $value) && !$this->validationExists($field) ?
             $this->returnValidationError("$field field should have at least one number or a letter", $field) : '';
     }
+    
     /**
      * @param string $request
      * takes in request requirement and assigns it the proper function
@@ -122,6 +127,7 @@ trait Validator
      */
     public function returnValidationError(string $error, string $name)
     {
+    //sets the error if there is no other error concerning the field
         return $this->errors[$name] = $error;
     }
 
@@ -138,6 +144,7 @@ trait Validator
      */
     public function hasErrors(): bool
     {
+     //returns true if there are errors else false
         return $this->errors !== [] ? true : false;
     }
     /**
