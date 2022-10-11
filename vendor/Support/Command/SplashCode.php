@@ -1,20 +1,32 @@
 <?php
 
 namespace Illuminate\Support\Command;
+//This file is included in the App\kernel where it is accessed 
+//This Trait validates and runs the commands entered in the CLI throught splash file
 
 trait SplashCode
 {
+    /**
+    * Entails if the command
+    */
     protected static $command = '';
+    /**
+    *Entails the value of the command entered
+    */
     protected static $value = '';
+    /**
+    * Declares if the command entered is valid
+    */
     protected static $isValid = false;
     use Text;
     protected $logo = '
-    _______     _____   __                   _______   _     _
-   / _______|  |  __ \  | |          /\     / ______| | |   | |
-  | |_____     | /  \ | | |         /  \   | |______  | |___| |
-   \_______ \  | \_ / | | |        / __ \   \ _____  \|  ___  |
-    ______ | | |  ___/  | |____   / /  \ \   ______| || |   | |
-    |_______/  |_|      |______| /_/    \_\  |______/ |_|   |_|
+    _____    _____   __            /\       _____   __    __
+   / ____|  |  __ \  | |          /  \     / ____|  | |   | |
+  | |_____  | /  \ | | |         / /\ \   | |____   | |___| |
+   \____  \ | \_ / | | |        / /__\ \   \___  \  |  ___  |
+    ____| | |  ___/  | |____   /  ____  \  ____|  | | |   | |
+    |_____/ |_|      |______| / _/    \ _\ |_____/  |_|   |_|
+    
     ';
 
     protected $controllerDir = __DIR__ . './../../../app/Http/Controllers/';
@@ -26,8 +38,8 @@ trait SplashCode
      */
     public function colorize(int $code, $text): string
     {
-        echo $this->logo;
-        return $this->returnConsole($code, $text);
+  	
+        return $this->returnConsole($code, $this->logo.$text);
     }
 
     /**
@@ -59,20 +71,28 @@ trait SplashCode
      */
     public function assignFunc($command, $value)
     {
-     var_dump("reached here");
         if (preg_match('#\w+:\w+#', $command)) {
             $parts = explode(":", $command);
             $func = $parts[0];
             $commandval = $parts[1];
-            return $this->$func($commandval, $value);
+            //Checks if the method entered by the user in the CLI exists
+            return $this->cli_method($func, $commandval,$value);
+            
         } elseif (preg_match('#\w+#', $command)) {
-       
-            return $this->$command();
+       	//executes when there is no use of colon (:) in the cli
+            return $this->cli_method($command);
         }
         else {
             return $this->$command;
         }
         return $this->colorize($this->code['red'], 'Unknown command');
+    }
+     /**
+    * Checks if a method exists else returns a CLI error
+    */
+    public function cli_method($method, ...$args) {
+    //returns an error of invalid command if the method is not found
+       return method_exists($this, $method) ? $this->$method(...$args) : $this->colorize($this->code['blue'], "Invalid command entered");
     }
 
     /**
@@ -106,6 +126,7 @@ trait SplashCode
      * validates if the command is found
      */
     public function validateCommand($argv) {
+    //checks if the command args is more than one to acertain if the command entered is valid
         $count = count($argv);
         if ($count == 3) {
             self::$command = $argv[1];
@@ -118,7 +139,12 @@ trait SplashCode
         }
 	return $this;
     }
+    /**
+    * Starts the project on a certain port
+    */
     public function serve() {
+
         exec("php -S localhost:200");
+        
     }
 }

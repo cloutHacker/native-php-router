@@ -2,7 +2,7 @@
 
  namespace App\Http\Controllers;
         
- use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Interfaces\Validation\Request;
 
  class UserController extends Controller
@@ -11,8 +11,9 @@ use Illuminate\Support\Interfaces\Validation\Request;
     
     public function register() {
     
-    	return $this->view("Register");
+    	return $this->view("register");
     }
+    
     public function login() {
        echo "login page";
     }

@@ -1,7 +1,7 @@
 <?php
 /*
  |starting a new instance of the app
- |This is a copyright© software owned by codeSplash 
+ |This is a copyright © software owned by codeSplash 
  | Thanks to developer Kibiwott currently studying at Alliance High School
  */
  include __DIR__.'/vendor/autoload.php';

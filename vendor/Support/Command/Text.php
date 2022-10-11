@@ -1,7 +1,7 @@
 <?php
 
 namespace Illuminate\Support\Command;
-
+//This trait entails all the functions of creating texts and all the functions of generating files
 trait Text
 {
     /**
