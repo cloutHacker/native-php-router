@@ -12,4 +12,7 @@ Go to any browser and open the port at which it is served.
 <img src="https://github.com/cloutHacker/projectImages/blob/master/CodeSplash/model.png"/>
 # Creating controller
 <img src="https://github.com/cloutHacker/projectImages/blob/master/CodeSplash/splash.png"/>
-This is a php framework used to simplify projects and save time
+This is a php framework used to simplify projects, saves time and is used to make elegant and robust systems which are secure.
+Hope you will like the project guys.👌
+👌
+<span style="color:green;">Thank you for your unending support and hope you will stay tune to this account for more intresting and fun projects.</span>
