@@ -1,6 +1,6 @@
 {
     "name": "vendor/router",
-    "description": "custom php router",
+    "description": "custom php framework",
     "autoload": {
         "psr-4": {
             "App\\": "app/",

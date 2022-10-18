@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Error\ErrorHandler;
-use Illuminate\Support\Helpers\Objects\SplashObject;
 use Illuminate\Support\Router\RouterHelper;
-use Illuminate\Support\Functions\RouterFunc;
-
 
 class Controller extends SplashObject
 {
@@ -18,10 +15,14 @@ class Controller extends SplashObject
      */
     use ErrorHandler;
     /**
+     * calls the views if there is no one it throws a view error
+     * @param string $view
+     * @param array $props
      * @return App\Console\Controller
      */
     function view(string $view, $props = [])
     {
+        //assigning the functions of the prop
         foreach ($props as $key => $value) {
             $$key = $value;
         }

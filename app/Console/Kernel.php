@@ -10,4 +10,5 @@ class Kernel extends ConsoleKernel
     
     public $path = __DIR__.'/../Http/Controllers/';
     public $viewPath;
+    
 }

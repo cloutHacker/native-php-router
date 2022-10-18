@@ -1,6 +1,7 @@
 <?php
 
 use App\Console\Kernel;
+
 /*
 |--------------------------------------------------------------------------
     | Create The Application

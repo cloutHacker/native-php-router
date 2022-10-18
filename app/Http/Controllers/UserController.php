@@ -23,4 +23,5 @@ use Illuminate\Support\Interfaces\Validation\Request;
     	]);
     	
     }
+    
 }

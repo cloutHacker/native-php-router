@@ -18,7 +18,7 @@ abstract class ModelHandler extends SplashObject
     }
     /**
      * @param string $input
-     * @return arr $output
+     * @return array $output
      * returns database result for a certain search
      */
     public function find(string $input)

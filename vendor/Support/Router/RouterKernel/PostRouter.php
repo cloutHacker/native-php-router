@@ -3,6 +3,7 @@
 namespace Illuminate\Support\Router\RouterKernel;
 
 use Illuminate\Support\Helpers\Request\RequestHandler;
+
 use Illuminate\Support\Router\RouterHelper;
 
 trait PostRouter

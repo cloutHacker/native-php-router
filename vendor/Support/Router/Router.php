@@ -1,6 +1,7 @@
 <?php
 
 namespace Illuminate\Support\Router;
+
 use Illuminate\Support\Router\RouterKernel\GetRouter;
 use Illuminate\Support\Router\RouterKernel\PostRouter;
 use Illuminate\Support\Router\RouterKernel\PutRouter;

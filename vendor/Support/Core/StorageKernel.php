@@ -1,4 +1,5 @@
 <?php
+
 require __DIR__.'./../../../bootstrap/baseUrl.php';
 define('URL_DIR', __DIR__.'./../../../public/assets/');
 
