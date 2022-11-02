@@ -4,6 +4,8 @@ namespace Illuminate\Support\Command;
 //This file is included in the App\kernel where it is accessed 
 //This Trait validates and runs the commands entered in the CLI throught splash file
 
+use Illuminate\Support\Helpers\Parsers\Dotenv;
+
 trait SplashCode
 {
     /**
@@ -143,8 +145,11 @@ trait SplashCode
     * Starts the project on a certain port
     */
     public function serve() {
-
-        exec("php -S localhost:200");
-        
+        //starting a new instance of dotenv file
+        (new DotEnv(__DIR__ . '../../../.env'))->load();
+        if (getenv("PORT")) {
+            return  exec("php -S localhost:".getenv('PORT'));
+        }
+        exec("php -S localhost:5000");
     }
 }

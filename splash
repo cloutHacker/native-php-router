@@ -10,7 +10,8 @@ require __DIR__.'/vendor/autoload.php';
 use App\Console\Kernel;
 
 /*
-|running the console for validation and execution of terminal commands
+|Running the console for validation and execution of terminal commands
+|Assigning all the commands to the right fuctions
 */
 
 (new Kernel())->validateCommand($argv)->assignCommand();

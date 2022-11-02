@@ -1,8 +1,10 @@
 <?php
 
-
-
-class autoloadHelper {
+/**
+ * @author kibiwottderick
+ */
+class autoloadHelper 
+{
 
   public $replacables = [];
   
