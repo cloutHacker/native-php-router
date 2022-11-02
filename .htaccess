@@ -1,34 +1,15 @@
-I'm working on an API with PHP Language, and I'm confused regarding why it works fine offline but not online on Heroku. Within the root directory, there is a ".htaccess" file.
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
 
-Problem: Offline, it works just fine when tested with the postman, but when tested online, it throws back 500 errors, nothing changed, just the run environment.
+    RewriteEngine On
 
-Codes:
+    # Redirect Trailing Slashes...
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
 
-Options -Indexes
-
- <Files .htaccess>
-    order deny,allow
-    deny from all
- </Files>
-
- AddDefaultCharset UTF-8
- FileETag None
- Options +FollowSymLinks -MultiViews
-
- RewriteEngine On
- RewriteCond %{SCRIPT_FILENAME} !-d
- RewriteRule ^([^.]+)$ $1.php [NC,L]
-
- RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-
- RewriteCond %{REQUEST_URI} !^/index\.php
- RewriteCond %{REQUEST_FILENAME} !-f
- RewriteCond %{REQUEST_FILENAME} !-d
- RewriteRule .* index.php [L]
-
-#Deliver the folder or the file exists in on the server
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-#push every request to index.php
-RewriteRule ^(.*)$ index.php [QSA]
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Error\ErrorHandler;
 use Illuminate\Support\Router\RouterHelper;
-use Illuminate\Support\Helpers\Objects\SpashObject;
+use Illuminate\Support\Helpers\Objects\SplashObject;
 
 class Controller extends SplashObject
 {

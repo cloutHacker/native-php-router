@@ -11,6 +11,7 @@
 
  use Illuminate\Support\Router\Router;
 
+ 
 include './bootstrap/app.php';
 
 //including all the routes in the web
@@ -20,6 +21,4 @@ include __DIR__.'/app/Routes/web.php';
  |Running the app to start the router and all the required functionality
  |This starts the all app
  */
-
-
 Router::run();
