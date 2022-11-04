@@ -1,6 +1,7 @@
 # CodeSplash
 ***Hello guys and welcome back to my account.✋✋✋
-There has been several discussions on how to set up this framework and I think this is the simplest php framework to set up.
+
+There has been several discussions on how to set up this framework and I think this is the simplest php framework to set up.It also has a developed env parser from scratch and easy to implement.You can follow the programming from scratch from my youtube channel.<a href="youtube.com">follow up</a>
 <br>
 # instructions
 First make sure that php is installed in your machine.Navigate to the target dir of CodeSplash, in your terminal simply type:

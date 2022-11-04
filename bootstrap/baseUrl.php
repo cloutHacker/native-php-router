@@ -1,5 +1,7 @@
 <?php
-
+    /**
+     * gets the app base dir relative to the server dir
+     */
     function base_url($atRoot=FALSE, $atCore=FALSE, $parse=FALSE){
         if (isset($_SERVER['HTTP_HOST'])) {
             $http = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
@@ -22,6 +24,7 @@
 
         return $base_url;
     }
+    //storing the var in a contant
 define('BASE_URL_',base_url());
 
 function appUrl(){
@@ -32,4 +35,5 @@ function appUrl(){
       $_SERVER['REQUEST_URI']
     );
   }
+  
   define('BASE_URL', str_replace(BASE_URL_, '', appUrl()));
