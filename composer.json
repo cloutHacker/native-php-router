@@ -1,5 +1,5 @@
 {
-    "name": "vendor/router",
+    "name": "jetLight",
     "description": "custom php framework",
     "autoload": {
         "psr-4": {
@@ -9,7 +9,7 @@
     },
     "authors": [
         {
-            "name": "kibiwottderick",
+            "name": "derickkibiwott",
             "email": "kibiwottderick@gmail.com"
         }
     ],

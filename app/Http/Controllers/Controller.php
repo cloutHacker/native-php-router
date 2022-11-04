@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Error\ErrorHandler;
 use Illuminate\Support\Router\RouterHelper;
 use Illuminate\Support\Helpers\Objects\SplashObject;
-
+/**
+ * @author kibiwott
+ */
 class Controller extends SplashObject
 {
     use RouterHelper;
@@ -28,7 +30,9 @@ class Controller extends SplashObject
             $$key = $value;
         }
         //still open for modification
+        //cleaning the view path
         $view = self::cleanViewPath($view);
+        //including the view file and passing the necessary variables
         return self::getView($view) ? require self::$viewPath . $view :
             die(self::throwError('', 'Error View not found'));
     }

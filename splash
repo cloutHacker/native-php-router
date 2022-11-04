@@ -17,5 +17,5 @@ use App\Console\Kernel;
 (new Kernel())->validateCommand($argv)->assignCommand();
 
 /*
-|All rights reserved, this is a copyright software from Derick Kibiwott,
+|All rights reserved, this is a copyright software from Derick Kibiwott
 */
